@@ -1,6 +1,6 @@
 const Engineer = require("../lib/Engineer");
 
-test("adds a github account during object creation", () => {
+test("adds a github account during engineer object creation", () => {
   const engineer = new Engineer();
 
   expect(engineer.github).toEqual(expect.any(String));
