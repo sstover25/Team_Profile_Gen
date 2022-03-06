@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const writeFile = require("./src/generate-site");
 const generateTeamPage = require("./src/page-template");
 
 const employeeArray = [];
@@ -71,7 +72,7 @@ const promptMenuQuestion = () => {
       if (answer === "Add a new engineer" || answer === "Add a new intern") {
         promptEmployeeQuestions(answer);
       } else if (answer === "Finish building my team") {
-        return generateTeamPage(employeeArray);
+        return employeeArray;
       }
     });
 };
@@ -141,6 +142,12 @@ const promptEmployeeQuestions = (answer) => {
 
 promptManagerQuestions()
   .then(promptMenuQuestion)
+  // .then((employeeArrayData) => {
+  //   return generateTeamPage(employeeArrayData);
+  // })
+  // .then((pageHTML) => {
+  //   return writeFile(pageHTML);
+  // })
   .catch((err) => {
     console.log(err);
   });
