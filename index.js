@@ -11,9 +11,17 @@ const managerQuestions = [
     message: "What is the manager's name?",
   },
   {
-    type: "number",
-    name: "employeeId",
+    type: "input",
+    name: "id",
     message: "What is the manager's employee ID?",
+    validate: (idInput) => {
+      if (!idInput) {
+        console.log("Please enter in the employee id!");
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
   {
     type: "input",
@@ -22,58 +30,27 @@ const managerQuestions = [
   },
   {
     type: "input",
-    name: "office",
-    message: "What is the managers office number?",
+    name: "officeNumber",
+    message: "What is the manager's office number?",
   },
 ];
 
-const employeeQuestions = [
-  {
-    type: "input",
-    name: "name",
-    message: "What is your employee's name?",
-  },
-  {
-    type: "number",
-    name: "employeeId",
-    message: "What is their employee ID?",
-  },
-  {
-    type: "input",
-    name: "email",
-    message: "What is their email address?",
-  },
-  {
-    type: "input",
-    name: "github",
-    message: "What is their github username?",
-    when: ({ action }) => {
-      if (action === "Add a new engineer") {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
-    name: "school",
-    message: "What school do they attend?",
-    when: ({ action }) => {
-      if (action === "Add a new intern") {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
-];
-
-const promptManagerQuestion = () => {
+const promptManagerQuestions = () => {
+  console.log(`
+  ---------
+  Welcome to the Team Profile Generator!
+  ---------
+  `);
   return inquirer.prompt(managerQuestions);
 };
 
 const promptMenuQuestion = () => {
+  console.log(`
+  ---------
+  Team Profile Generator
+  Main Menu
+  ---------
+  `);
   return inquirer
     .prompt([
       {
@@ -91,9 +68,73 @@ const promptMenuQuestion = () => {
       let answer = menuAnswer.action;
 
       if (answer === "Add a new engineer" || answer === "Add a new intern") {
-        promptEmployeeQuestion(answer);
+        promptEmployeeQuestions(answer);
       } else if (answer === "Finish building my team") {
         buildTeamPage();
       }
     });
 };
+
+const promptEmployeeQuestions = (answer) => {
+  console.log(`
+  ---------
+  ${answer}
+  ---------
+  `);
+
+  return inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is your employee's name?",
+    },
+    {
+      type: "input",
+      name: "id",
+      message: "What is their employee ID?",
+      validate: (idInput) => {
+        if (!idInput) {
+          console.log("Please enter in the employee id!");
+          return false;
+        } else {
+          return true;
+        }
+      },
+    },
+    {
+      type: "input",
+      name: "email",
+      message: "What is their email address?",
+    },
+    {
+      type: "input",
+      name: "github",
+      message: "What is their github username?",
+      when: () => {
+        if (answer === "Add a new engineer") {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    },
+    {
+      type: "input",
+      name: "school",
+      message: "What school do they attend?",
+      when: () => {
+        if (answer === "Add a new intern") {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    },
+  ]);
+};
+
+promptManagerQuestions()
+  .then(promptMenuQuestion)
+  .catch((err) => {
+    console.log(err);
+  });
