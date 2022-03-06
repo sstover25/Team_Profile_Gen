@@ -1,8 +1,5 @@
-const fs = require("fs");
 const inquirer = require("inquirer");
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
+const generateTeamPage = require("./src/page-template");
 
 const employeeArray = [];
 
@@ -74,9 +71,7 @@ const promptMenuQuestion = () => {
       if (answer === "Add a new engineer" || answer === "Add a new intern") {
         promptEmployeeQuestions(answer);
       } else if (answer === "Finish building my team") {
-        //buildTeamPage();
-        console.log(employeeArray);
-        return;
+        return generateTeamPage(employeeArray);
       }
     });
 };
