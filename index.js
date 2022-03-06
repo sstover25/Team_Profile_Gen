@@ -4,6 +4,8 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
+const employeeArray = [];
+
 const managerQuestions = [
   {
     type: "input",
@@ -41,7 +43,9 @@ const promptManagerQuestions = () => {
   Welcome to the Team Profile Generator!
   ---------
   `);
-  return inquirer.prompt(managerQuestions);
+  return inquirer.prompt(managerQuestions).then((managerData) => {
+    employeeArray.push(managerData);
+  });
 };
 
 const promptMenuQuestion = () => {
@@ -70,7 +74,9 @@ const promptMenuQuestion = () => {
       if (answer === "Add a new engineer" || answer === "Add a new intern") {
         promptEmployeeQuestions(answer);
       } else if (answer === "Finish building my team") {
-        buildTeamPage();
+        //buildTeamPage();
+        console.log(employeeArray);
+        return;
       }
     });
 };
@@ -82,55 +88,60 @@ const promptEmployeeQuestions = (answer) => {
   ---------
   `);
 
-  return inquirer.prompt([
-    {
-      type: "input",
-      name: "name",
-      message: "What is your employee's name?",
-    },
-    {
-      type: "input",
-      name: "id",
-      message: "What is their employee ID?",
-      validate: (idInput) => {
-        if (!idInput) {
-          console.log("Please enter in the employee id!");
-          return false;
-        } else {
-          return true;
-        }
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is your employee's name?",
       },
-    },
-    {
-      type: "input",
-      name: "email",
-      message: "What is their email address?",
-    },
-    {
-      type: "input",
-      name: "github",
-      message: "What is their github username?",
-      when: () => {
-        if (answer === "Add a new engineer") {
-          return true;
-        } else {
-          return false;
-        }
+      {
+        type: "input",
+        name: "id",
+        message: "What is their employee ID?",
+        validate: (idInput) => {
+          if (!idInput) {
+            console.log("Please enter in the employee id!");
+            return false;
+          } else {
+            return true;
+          }
+        },
       },
-    },
-    {
-      type: "input",
-      name: "school",
-      message: "What school do they attend?",
-      when: () => {
-        if (answer === "Add a new intern") {
-          return true;
-        } else {
-          return false;
-        }
+      {
+        type: "input",
+        name: "email",
+        message: "What is their email address?",
       },
-    },
-  ]);
+      {
+        type: "input",
+        name: "github",
+        message: "What is their github username?",
+        when: () => {
+          if (answer === "Add a new engineer") {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "What school do they attend?",
+        when: () => {
+          if (answer === "Add a new intern") {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      },
+    ])
+    .then((employeeData) => {
+      employeeArray.push(employeeData);
+    })
+    .then(promptMenuQuestion);
 };
 
 promptManagerQuestions()
