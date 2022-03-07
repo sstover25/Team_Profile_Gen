@@ -70,9 +70,11 @@ const promptMenuQuestion = () => {
       let answer = menuAnswer.action;
 
       if (answer === "Add a new engineer" || answer === "Add a new intern") {
-        promptEmployeeQuestions(answer);
-      } else if (answer === "Finish building my team") {
-        return employeeArray;
+        return promptEmployeeQuestions(answer);
+      } else {
+        console.log(employeeArray);
+        const finalEmployeeArray = employeeArray;
+        return finalEmployeeArray;
       }
     });
 };
@@ -142,9 +144,9 @@ const promptEmployeeQuestions = (answer) => {
 
 promptManagerQuestions()
   .then(promptMenuQuestion)
-  // .then((employeeArrayData) => {
-  //   return generateTeamPage(employeeArrayData);
-  // })
+  .then((employeeArrayData) => {
+    return generateTeamPage(employeeArrayData);
+  })
   // .then((pageHTML) => {
   //   return writeFile(pageHTML);
   // })
