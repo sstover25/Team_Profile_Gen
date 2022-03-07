@@ -5,7 +5,7 @@ const Intern = require("../lib/Intern");
 const buildTeamCards = (employeeArrayData) => {
   const newEmployeeArray = employeeArrayData;
   console.log(newEmployeeArray);
-  for (i = 0; i < newEmployeeArray.length; i++) {
+  for (var i = 0; i < newEmployeeArray.length; i++) {
     if (newEmployeeArray[i].officeNumber) {
       return `
         <div class="card" style="width: 18rem;">
@@ -41,6 +41,7 @@ const buildTeamCards = (employeeArrayData) => {
 };
 
 module.exports = (templateData) => {
+  const employeeArrayData = templateData;
   return `
     <!DOCTYPE html> 
     <html lang="en"> 
@@ -60,7 +61,7 @@ module.exports = (templateData) => {
       </div>
     </header>
     <main class="col-12 col-lg-9 d-flex flex-column">
-          ${buildTeamCards()}
+          ${buildTeamCards(employeeArrayData)}
     </main>
     </body>
     </html>
