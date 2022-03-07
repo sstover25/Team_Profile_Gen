@@ -78,7 +78,7 @@ You are required to submit the following for review:
 - A walkthrough video demonstrating the functionality of the application:
   https://drive.google.com/file/d/1fPh5NYj0vPHTZLajJnjYDjZw7szIAtTn/view
 
-- A sample README.md file for a project repository generated using your application:
+- A sample HTML file generated using your application: https://github.com/sstover25/Team_Profile_Gen/tree/main/dist
 
 - The URL of the GitHub repository: https://github.com/sstover25/Team_Profile_Gen
 
