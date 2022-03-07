@@ -149,6 +149,10 @@ promptManagerQuestions()
   .then((pageHTML) => {
     return writeFile(pageHTML);
   })
+  .then((writeFileResponse) => {
+    console.log(`
+    ${writeFileResponse.message}`);
+  })
   .catch((err) => {
     console.log(err);
   });
