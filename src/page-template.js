@@ -2,11 +2,13 @@ const Manager = require("../lib/Manager");
 const Engineer = require("../lib/Engineer");
 const Intern = require("../lib/Intern");
 
+// this function is meant to push in a new set of html to an array for each new Object that was created based on the command line input
 const buildTeamCards = (employeeArrayData) => {
   const newEmployeeArray = employeeArrayData;
   const cardArray = [];
 
   for (var i = 0; i < newEmployeeArray.length; i++) {
+    // if the object in the array contains a key of "officeNumber", it's used to create a new Manager object using the key/value pairs from the array object
     if (newEmployeeArray[i].officeNumber) {
       const manager = new Manager(
         newEmployeeArray[i].name,
@@ -14,6 +16,7 @@ const buildTeamCards = (employeeArrayData) => {
         newEmployeeArray[i].email,
         newEmployeeArray[i].officeNumber
       );
+      // the html below uses the built-in object methods from the Manager Object to populate the data in the correct locations
       cardArray.push(`
         <div class="card mx-auto" style="min-width: 18rem; margin: 20px;">
             <div class="card-body shadow">
@@ -25,29 +28,35 @@ const buildTeamCards = (employeeArrayData) => {
                 }</p>
             </div>
         </div>`);
-    } else if (newEmployeeArray[i].github) {
+    }
+    // if the object in the array contains a key of "github", it's used to create a new Engineer object using the key/value pairs from the array object
+    else if (newEmployeeArray[i].github) {
       const engineer = new Engineer(
         newEmployeeArray[i].name,
         newEmployeeArray[i].id,
         newEmployeeArray[i].email,
         newEmployeeArray[i].github
       );
+      // the html below uses the built-in object methods from the Engineer Object to populate the data in the correct locations
       cardArray.push(`
         <div class="card mx-auto" style="min-width: 18rem; margin: 20px;">
               <div class="card-body shadow">
                   <h5 class="card-title bg-warning p-2">${engineer.getName()}<br />${engineer.getRole()}</h5>
                   <p class="card-text border border-dark p-2">ID: ${engineer.getId()}</p>
                   <p class="card-text border border-dark p-2">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></p>
-                  <p class="card-text border border-dark p-2"><a href="https://github.com/${engineer.getGitHub()}" target="_blank">GitHub</a></p>
+                  <p class="card-text border border-dark p-2">GitHub username: <a href="https://github.com/${engineer.getGitHub()}" target="_blank">${engineer.getGitHub()}</a></p>
               </div>
           </div>`);
-    } else if (newEmployeeArray[i].school) {
+    }
+    // if the object in the array contains a key of "school", it's used to create a new Intern object using the key/value pairs from the array object
+    else if (newEmployeeArray[i].school) {
       const intern = new Intern(
         newEmployeeArray[i].name,
         newEmployeeArray[i].id,
         newEmployeeArray[i].email,
         newEmployeeArray[i].school
       );
+      // the html below uses the built-in object methods from the Intern Object to populate the data in the correct locations
       cardArray.push(`
         <div class="card mx-auto" style="min-width: 18rem; margin: 20px;">
                 <div class="card-body shadow">
@@ -59,6 +68,7 @@ const buildTeamCards = (employeeArrayData) => {
             </div>`);
     }
   }
+  // this removes the commas present in the array, turning the array into a string object
   return cardArray.join("");
 };
 
