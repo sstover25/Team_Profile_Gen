@@ -4,36 +4,53 @@ const Intern = require("../lib/Intern");
 
 const buildTeamCards = (employeeArrayData) => {
   const newEmployeeArray = employeeArrayData;
-  console.log(newEmployeeArray);
   for (var i = 0; i < newEmployeeArray.length; i++) {
     if (newEmployeeArray[i].officeNumber) {
+      const manager = new Manager(
+        newEmployeeArray[i].name,
+        newEmployeeArray[i].id,
+        newEmployeeArray[i].email,
+        newEmployeeArray[i].officeNumber
+      );
       return `
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">${Manager.getName()}<br />${Manager.getRole()}</h5>
-                <p class="card-text">ID: ${Manager.getId()}</p>
-                <p class="card-text">Email: <a href="${Manager.getEmail()}">${Manager.getEmail()}</a></p>
-                <p class="card-text">Office number: ${Manager.getOfficeNumber()}</p>
+                <h5 class="card-title">${manager.getName()}<br />${manager.getRole()}</h5>
+                <p class="card-text">ID: ${manager.getId()}</p>
+                <p class="card-text">Email: <a href="${manager.getEmail()}">${manager.getEmail()}</a></p>
+                <p class="card-text">Office number: ${manager.officeNumber}</p>
             </div>
         </div>`;
     } else if (newEmployeeArray[i].github) {
+      const engineer = new Engineer(
+        newEmployeeArray[i].name,
+        newEmployeeArray[i].id,
+        newEmployeeArray[i].email,
+        newEmployeeArray[i].officeNumber
+      );
       return `
           <div class="card" style="width: 18rem;">
               <div class="card-body">
-                  <h5 class="card-title">${Engineer.getName()}<br />${Engineer.getRole()}</h5>
-                  <p class="card-text">ID: ${Engineer.getId()}</p>
-                  <p class="card-text">Email: <a href="${Engineer.getEmail()}">${Engineer.getEmail()}</a></p>
-                  <p class="card-text">Office number: ${Engineer.getGitHub()}</p>
+                  <h5 class="card-title">${engineer.getName()}<br />${engineer.getRole()}</h5>
+                  <p class="card-text">ID: ${engineer.getId()}</p>
+                  <p class="card-text">Email: <a href="${engineer.getEmail()}">${engineer.getEmail()}</a></p>
+                  <p class="card-text">Office number: ${engineer.getGitHub()}</p>
               </div>
           </div>`;
     } else if (newEmployeeArray[i].school) {
+      const intern = new Intern(
+        newEmployeeArray[i].name,
+        newEmployeeArray[i].id,
+        newEmployeeArray[i].email,
+        newEmployeeArray[i].officeNumber
+      );
       return `
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">${Intern.getName()}<br />${Intern.getRole()}</h5>
-                    <p class="card-text">ID: ${Intern.getId()}</p>
-                    <p class="card-text">Email: <a href="${Intern.getEmail()}">${Intern.getEmail()}</a></p>
-                    <p class="card-text">Office number: ${Intern.getSchool()}</p>
+                    <h5 class="card-title">${intern.getName()}<br />${intern.getRole()}</h5>
+                    <p class="card-text">ID: ${intern.getId()}</p>
+                    <p class="card-text">Email: <a href="${intern.getEmail()}">${intern.getEmail()}</a></p>
+                    <p class="card-text">Office number: ${intern.getSchool()}</p>
                 </div>
             </div>`;
     }

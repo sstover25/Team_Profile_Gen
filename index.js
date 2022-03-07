@@ -146,9 +146,9 @@ promptManagerQuestions()
   .then((finalEmployeeArray) => {
     return generateTeamPage(finalEmployeeArray);
   })
-  // .then((pageHTML) => {
-  //   return writeFile(pageHTML);
-  // })
+  .then((pageHTML) => {
+    return writeFile(pageHTML);
+  })
   .catch((err) => {
     console.log(err);
   });
